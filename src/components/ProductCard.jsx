@@ -34,7 +34,7 @@ function ProductCard() {
         <p className="text-gray-600 mb-4">
           {"productData.description.substring(0, 35)"}
         </p>
-        {/* price, offer andrating : */}
+        {/* price, offer and rating : */}
         <div className="w-full flex items-center place-content-around">
           <span className="text-lg font-bold text-gray-800">₹{"31,990"}</span>
           <span className="text-sm text-gray-500 font-semibold line-through">
@@ -49,7 +49,7 @@ function ProductCard() {
         </div>
       </div>
       {/* Add to Cart Button: */}
-      <button className="w-11/12 my-5 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-800">
+      <button className="w-11/12 my-5 font-semibold border-2 rounded-full outline-none bg-blue-700 text-white px-4 py-2 hover:bg-transparent hover:border-2 hover:border-blue-800 hover:text-blue-800 transition duration-300">
         Add to Cart
       </button>
     </div>

@@ -9,6 +9,7 @@ import RegisterModal from "./components/RegisterModal";
 import Home from "./pages/Home";
 
 import "./App.css";
+import ProductView from "./pages/ProductView";
 import Products from "./pages/Products";
 import Categories from "./pages/Categories";
 import Cart from "./pages/Cart";
@@ -27,6 +28,7 @@ function App() {
           <Route path="login" element={<LoginModal />} />
           <Route path="register" element={<RegisterModal />} />
           <Route path="products" element={<Products />} />
+          <Route path="product-view" element={<ProductView />} />
           <Route path="categories" element={<Categories />} />
           <Route path="cart" element={<Cart />} />
         </Route>
