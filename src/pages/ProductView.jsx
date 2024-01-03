@@ -19,7 +19,8 @@ function ProductView() {
   // Hardcoded product details
   const productDetails = {
     title: "Sample Product",
-    description: "A description of the sample product.",
+    description:
+      "SAMSUNG 24 inch Full HD LED Backlit IPS Panel with 3-Sided Borderless Display, Game & Free Sync Mode, Eye Saver Mode & Flicker Free Monitor (LS24C310EAWXXL)",
     rating: 4.5,
     discountPercentage: 20,
     price: 999,
@@ -29,7 +30,7 @@ function ProductView() {
     <>
       <div className="border-2 mt-5 flex flex-col items-center md:flex-row sm:justify-between shadow-md">
         {/* Product view image-gallary container */}
-        <div className="border-r-2 flex flex-col-reverse items-center p-8 sm:flex-col-reverse md:flex-row">
+        <div className="md:border-r-2 flex flex-col-reverse items-center p-8 sm:flex-col-reverse md:flex-row">
           {/* Small Thumbnail images */}
           <div className="m-2 overflow-x-scroll overflow-y-auto md:overflow-y-scroll md:overflow-x-auto flex sm:flex-row md:flex-col md:items-center">
             {images.map((image, index) => (
@@ -75,7 +76,7 @@ function ProductView() {
           <h2 className="font-bold text-3xl text-gray-800 mb-2">
             {productDetails.title}
           </h2>
-          <p className="text-gray-600 text-lg mb-4">
+          <p className="text-gray-600 text-lg text-left mb-4 mx-3">
             {productDetails.description}
           </p>
 
@@ -190,7 +191,37 @@ function ProductView() {
       </div>
 
       {/* reviews::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */}
-      <div></div>
+      {/* reviews' container: */}
+      <div className="my-5 p-5">
+        <h1 className="font-bold text-4xl">Ratings & Reviews</h1>
+        {/* that single rating: */}
+        <div className="m-5 p-5 shadow-lg">
+          <div className="m-5 flex flex-row items-center ">
+            <span className=" m-2 bg-blue-600 text-white py-2 px-3 font-bold text-3xl rounded-full cursor-pointer">
+              M
+            </span>
+
+            <span className=" m-2 text-gray-600 font-bold">Mohan Lal</span>
+            <span className=" m-2 text-xs px-2 py-1 bg-green-800 text-white rounded-md">
+              {"4.5"} ★
+            </span>
+          </div>
+          <div className="text-left  m-5 ">
+            Such a brilliant picture quality in this price bracket. Tremendous
+            brightness with utra sharp viewing experience. Got the monitor in
+            very reasonable price compare than market. Go with this without any
+            doubt. Worth every penny Awesome monitor for WFHsize is also
+            perfect. It can be tilted by loosing screws behind black tape of the
+            stand. Decent monitor at this price range. Bought it for wfh and
+            it's serving the purpose. Could have been better with tilt
+            adjustment. Decent monitor at this price range. Bought it for wfh
+            and it's serving the purpose. Could have been better with tilt
+            adjustment. Decent monitor at this price range. Bought it for wfh
+            and it's serving the purpose. Could have been better with tilt
+            adjustment.
+          </div>
+        </div>
+      </div>
     </>
   );
 }
