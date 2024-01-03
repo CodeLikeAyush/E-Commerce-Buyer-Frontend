@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar";
 import Carousel from "./components/Carousel";
 import LoginModal from "./components/LoginModal";
 import RegisterModal from "./components/RegisterModal";
+import AddressModal from "./components/AddressModal";
 
 import Home from "./pages/Home";
 
@@ -20,9 +21,12 @@ function App() {
   const background = location.state && location.state.background;
   // const previousLocation = location.state && location.state.previousLocation;
 
+  const [addressModalOpen, setAddressModalOpen] = useState(false);
+
   return (
     <>
       {/* <NavBar /> */}
+      <AddressModal open={addressModalOpen} />
       <Routes location={background || location}>
         <Route path="/" element={<NavBar />}>
           <Route index path="" element={<Home />} />
