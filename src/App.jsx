@@ -6,12 +6,13 @@ import Carousel from "./components/Carousel";
 import LoginModal from "./components/LoginModal";
 import RegisterModal from "./components/RegisterModal";
 import AddressModal from "./components/AddressModal";
+import LoadingWindow from "./components/LoadingWindow";
 
 import Home from "./pages/Home";
 
 import "./App.css";
 import ProductView from "./pages/ProductView";
-import Products from "./pages/Products";
+import Products from "./pages/products/Products";
 import Categories from "./pages/Categories";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
@@ -27,6 +28,7 @@ function App() {
     <>
       {/* <NavBar /> */}
       <AddressModal open={addressModalOpen} />
+      {/* <LoadingWindow /> */}
       <Routes location={background || location}>
         <Route path="/" element={<NavBar />}>
           <Route index path="" element={<Home />} />

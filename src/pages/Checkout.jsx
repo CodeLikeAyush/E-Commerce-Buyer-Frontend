@@ -95,7 +95,7 @@ function Checkout() {
             onClick={toggleAddressModal}
             className="shadow-md h-20 md:h-32 w-full md:w-3/4  mx-4 my-2 font-extrabold text-lg bg-orange-500 text-white rounded-md hover:bg-orange-400 focus:outline-none focus:ring focus:border-blue-300"
           >
-            + Add New Address
+            + | Add New Address
           </button>
 
           {/* Addresses cards */}

@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation, Outlet } from "react-router-dom";
 
+import { useSelector } from "react-redux";
+
 function NavBar() {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const user = useSelector((state) => state.auth.user);
+  const firstName = user ? user.firstName : "";
+
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -74,13 +80,19 @@ function NavBar() {
               />
               Cart
             </Link>
-            <Link
-              to="/login"
-              state={{ background: location }}
-              className="text-lg px-7 py-2 border-2 border-white rounded-full bg-white text-blue-700 hover:text-white hover:bg-blue-700 transition duration-300"
-            >
-              Login
-            </Link>
+            {isLoggedIn ? (
+              <span className="border-2 cursor-pointer h-12 w-12 text-center text-2xl inline-flex items-center justify-center  border-white rounded-full bg-white text-blue-700 hover:text-white hover:bg-blue-700 transition duration-300">
+                {firstName.substring(0, 1)}
+              </span>
+            ) : (
+              <Link
+                to="/login"
+                state={{ background: location }}
+                className="text-lg px-7 py-2 border-2 border-white rounded-full bg-white text-blue-700 hover:text-white hover:bg-blue-700 transition duration-300"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </nav>

@@ -1,8 +1,8 @@
 import React from "react";
 
-function ProductCard() {
+function ProductCard({ product }) {
   return (
-    <div className="max-w-sm h-fit bg-white shadow-lg rounded-xl overflow-hidden cursor-pointer relative">
+    <div className="w-full md:w-80 h-fit bg-white shadow-2xl rounded-xl overflow-hidden cursor-pointer relative">
       {/* Wishlist Button (Top-Right) */}
       <button className="absolute top-2 right-2 text-red-500">
         <svg
@@ -10,7 +10,7 @@ function ProductCard() {
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
-          className="h-10 w-10 rounded-full hover:bg-red-100  text-gray-600 p-2"
+          className="h-10 w-10 rounded-full bg-white hover:bg-red-100  text-gray-600 p-2"
         >
           <path
             strokeLinecap="round"
@@ -23,25 +23,27 @@ function ProductCard() {
       {/* Product image */}
       <img
         className="w-full h-64 object-cover object-center"
-        src="https://www.reliancedigital.in/medias/iPhone-14-Pro-Deep-Purple-PDP-Image-493177790-i-1-1200Wx1200H-300Wx300H?context=bWFzdGVyfGltYWdlc3wyNjk4MnxpbWFnZS9qcGVnfGltYWdlcy9oMGUvaGY3LzEwMDE2OTQzNDcyNjcwLmpwZ3wzNGJmZDM3ODViNjZlMjc4MDQ4ZTVjN2YzZTExOTg2NTIwY2ZlMDliYWQyZGMyM2NhMDViMDNiMmYxZGI5MTVi"
+        src={product.thumbnail}
         alt="Product"
       />
       {/* Product Information :*/}
       <div className="p-4">
         <h2 className="text-xl font-semibold text-gray-800 mb-2">
-          {"IPhone 14 Pro Max"}
+          {product.title}
         </h2>
         <p className="text-gray-600 mb-4">
-          {"productData.description.substring(0, 35)"}
+          {product.description.substring(0, 35)}
         </p>
         {/* price, offer and rating : */}
         <div className="w-full flex items-center place-content-around">
-          <span className="text-lg font-bold text-gray-800">₹{"31,990"}</span>
+          <span className="text-lg font-bold text-gray-800">
+            ₹{product.discountedPrice}
+          </span>
           <span className="text-sm text-gray-500 font-semibold line-through">
-            ₹{"51,999"}
+            ₹{product.price}
           </span>
           <span className="text-sm text-green-500 font-bold  ml-1">
-            (38% off)
+            ({product.discountPercent}% off)
           </span>
           <span className="text-xs px-2 py-1 bg-green-800 text-white rounded-md">
             {"4.5"} ★
