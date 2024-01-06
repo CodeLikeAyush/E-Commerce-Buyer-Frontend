@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
@@ -14,14 +14,24 @@ import "./App.css";
 import ProductView from "./pages/ProductView";
 import Products from "./pages/products/Products";
 import Categories from "./pages/Categories";
-import Cart from "./pages/Cart";
+import Cart from "./pages/cart/Cart";
 import Checkout from "./pages/Checkout";
 // https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=267669956141-f6kd1f8k228hh186imh1j7gbopgi4ln3.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fcodesandbox.io%2Fauth%2Fgoogle%2Fcallback&response_type=code&scope=email%20profile&state=M4-duLMniyprofr8r7Y44oP_&service=lso&o2v=2&theme=glif&flowName=GeneralOAuthFlow
+
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserCart } from "./pages/cart/cartSlice";
+
 function App() {
+  const dispatch = useDispatch();
   const location = useLocation();
   const background = location.state && location.state.background;
-  // const previousLocation = location.state && location.state.previousLocation;
 
+  const fetchUserCartStatus = useSelector((state) => state.cart.status);
+  useEffect(() => {
+    if (fetchUserCartStatus === "idle") {
+      dispatch(fetchUserCart());
+    }
+  });
   const [addressModalOpen, setAddressModalOpen] = useState(false);
 
   return (

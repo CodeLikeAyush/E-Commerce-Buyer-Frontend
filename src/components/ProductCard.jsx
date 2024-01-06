@@ -1,6 +1,13 @@
 import React from "react";
 
+import { useDispatch, useSelector } from "react-redux";
+
+// thunk function:
+import { addItemToCart } from "../pages/products/productsSlice";
+
 function ProductCard({ product }) {
+  const dispatch = useDispatch();
+
   return (
     <div className="w-full md:w-80 h-fit bg-white shadow-2xl rounded-xl overflow-hidden cursor-pointer relative">
       {/* Wishlist Button (Top-Right) */}
@@ -37,7 +44,7 @@ function ProductCard({ product }) {
         {/* price, offer and rating : */}
         <div className="w-full flex items-center place-content-around">
           <span className="text-lg font-bold text-gray-800">
-            ₹{product.discountedPrice}
+            ₹{product.price * (1 - product.discountPercent * 0.01)}
           </span>
           <span className="text-sm text-gray-500 font-semibold line-through">
             ₹{product.price}
@@ -51,7 +58,12 @@ function ProductCard({ product }) {
         </div>
       </div>
       {/* Add to Cart Button: */}
-      <button className="w-11/12 my-5 font-semibold border-2 rounded-full outline-none bg-blue-700 text-white px-4 py-2 hover:bg-transparent hover:border-2 hover:border-blue-800 hover:text-blue-800 transition duration-300">
+      <button
+        className="w-11/12 my-5 font-semibold border-2 rounded-full outline-none bg-blue-700 text-white px-4 py-2 hover:bg-transparent hover:border-2 hover:border-blue-800 hover:text-blue-800 transition duration-300"
+        onClick={() => {
+          dispatch(addItemToCart({ productId: product._id }));
+        }}
+      >
         Add to Cart
       </button>
     </div>

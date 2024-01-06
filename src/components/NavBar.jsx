@@ -6,9 +6,12 @@ import { useSelector } from "react-redux";
 function NavBar() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const user = useSelector((state) => state.auth.user);
+  const cartItemCount = useSelector((state) => isLoggedIn ? state.cart.userCart.totalItemCount : 0);
+
   const firstName = user ? user.firstName : "";
 
   const location = useLocation();
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -72,13 +75,22 @@ function NavBar() {
 
           {/* Cart and Login Links */}
           <div className="flex items-center space-x-4">
-            <Link to="/cart" className="text-lg px-4 py-2 flex items-center">
+            <Link
+              to="/cart"
+              className="text-lg px-4 py-2 flex items-center relative"
+            >
               <img
                 src="cart_icon_fill.svg"
                 alt="cart"
                 className="h-6 m-2 invert"
               />
               Cart
+              {cartItemCount > 0 && (
+                // cart-badge:
+                <span className="absolute left-8 top-1 h-5 w-5 text-center text-sm inline-flex items-center justify-center rounded-full bg-red-500 text-white-700 ">
+                  {cartItemCount}
+                </span>
+              )}
             </Link>
             {isLoggedIn ? (
               <span className="border-2 cursor-pointer h-12 w-12 text-center text-2xl inline-flex items-center justify-center  border-white rounded-full bg-white text-blue-700 hover:text-white hover:bg-blue-700 transition duration-300">
