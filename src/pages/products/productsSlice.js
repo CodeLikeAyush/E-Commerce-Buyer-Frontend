@@ -23,25 +23,25 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
-export const addItemToCart = createAsyncThunk(
-  "products/addToCart",
-  async ({ productId }) => {
-    try {
-      const response = await fetch("http://localhost:3000/api/cart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ productId }),
-      });
-      console.log(response);
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  }
-);
+// export const addItemToCart = createAsyncThunk(
+//   "products/addToCart",
+//   async ({ productId }) => {
+//     try {
+//       const response = await fetch("http://localhost:3000/api/cart", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({ productId }),
+//       });
+//       console.log(response);
+//       const data = await response.json();
+//       return data;
+//     } catch (error) {
+//       throw error;
+//     }
+//   }
+// );
 
 const productsSlice = createSlice({
   name: "products",
@@ -57,6 +57,7 @@ const productsSlice = createSlice({
         // console.log(action); // {type: 'products/fetchProducts/fulfilled', payload: {…}, meta:............}
         state.status = "succeeded";
         state.products = action.payload; // Update state with the fetched products
+        // state.products = state.products.concat(action.payload);
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         // console.log(action)
@@ -65,5 +66,18 @@ const productsSlice = createSlice({
       });
   },
 });
+
+// selector functions:
+export const isAnCartItem = (state, productId) => {
+  // Use `some` instead of `find` to return a boolean indicating if the condition is met
+  return state.cart?.userCart?.cartItems.some((cartItem) => {
+    return cartItem.product === productId.toString();
+  });
+};
+
+export const selectPostById = (
+  state,
+  postId // here state is the global state as it being used inside anonymous function of useSelector hook.
+) => state.posts.posts.find((post) => post.id === postId);
 
 export default productsSlice.reducer;

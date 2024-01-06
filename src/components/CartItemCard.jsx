@@ -10,7 +10,7 @@ function CartItemCard({ product, quantity }) {
             <img
               src={product.thumbnail}
               alt={"item.name"}
-              className="h-24 w-24 object-cover rounded-md"
+              className="h-24 w-24 object-fill rounded-md"
             />
           </div>
           <div className="flex items-center place-content-around">

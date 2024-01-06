@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 function ProductView() {
+  const navigate = useNavigate();
   const images = [
     "https://rukminim2.flixcart.com/image/416/416/xif0q/power-bank/o/h/c/power-bank-dx15-20000-mah-dx15-20k-20000-callmate-original-imagqkjnmxtqfhds.jpeg?q=70",
     "https://rukminim2.flixcart.com/image/416/416/xif0q/power-bank/c/o/x/power-bank-dx15-20000-mah-dx15-20k-20000-callmate-original-imagqkjnxmgghysn.jpeg?q=70",
@@ -28,7 +31,31 @@ function ProductView() {
 
   return (
     <>
-      <div className="border-2 mt-5 flex flex-col items-center md:flex-row sm:justify-between shadow-md">
+      {/* back button: */}
+      <button
+        onClick={() => {
+          navigate(-1);
+        }}
+        title="Go Back"
+        className="bg-white m-5  text-gray-800  text-9xl py-3 px-4 border-2 rounded-full flex items-center shadow-2xl"
+      >
+        <svg
+          className="h-4 w-4 mr-2"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+          />
+        </svg>
+        <span className="text-sm font-semibold">Back</span>
+      </button>
+      <div className="border-2 mt-5 pb-20 md:pb-0 flex flex-col items-center md:flex-row sm:justify-between shadow-md">
         {/* Product view image-gallary container */}
         <div className="md:border-r-2 flex flex-col-reverse items-center p-8 sm:flex-col-reverse md:flex-row">
           {/* Small Thumbnail images */}

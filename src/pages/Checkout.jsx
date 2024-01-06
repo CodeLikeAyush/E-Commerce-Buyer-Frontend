@@ -64,7 +64,7 @@ function Checkout() {
           navigate(-1);
         }}
         title="Go Back"
-        className="bg-white m-5  text-gray-800  text-9xl font-extrabold py-3 px-2 border-2 rounded-full flex items-center shadow-2xl"
+        className="bg-white m-5  text-gray-800  text-9xl py-3 px-4 border-2 rounded-full flex items-center shadow-2xl"
       >
         <svg
           className="h-4 w-4 mr-2"
@@ -80,6 +80,7 @@ function Checkout() {
             d="M10 19l-7-7m0 0l7-7m-7 7h18"
           />
         </svg>
+        <span className="text-sm font-semibold">Back</span>
       </button>
 
       {/* ::::::::::::::::::::::::::::::::: */}
@@ -112,7 +113,7 @@ function Checkout() {
         {/* Price details container */}
         <div className="shadow-lg w-full md:w-2/3 h-full p-4">
           <h1 className="text-blue-500 font-semibold text-3xl mb-4">
-            Price Details
+            Order Summary
           </h1>
           <hr className="mb-4" />
 
