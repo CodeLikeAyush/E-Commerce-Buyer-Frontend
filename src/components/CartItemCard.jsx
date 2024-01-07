@@ -1,6 +1,14 @@
 import React from "react";
 
-function CartItemCard({ product, quantity }) {
+import { useDispatch, useSelector } from "react-redux";
+
+import { removeItemFromCart } from "../pages/cart/cartSlice";
+import { updateCartItemQuantity } from "../pages/cart/cartSlice";
+
+function CartItemCard({ product, cartItemId, quantity }) {
+  // const loadingStatus = useSelector((state)=>state.cart)
+  const dispatch = useDispatch();
+
   console.log(product);
   return (
     <>
@@ -27,8 +35,16 @@ function CartItemCard({ product, quantity }) {
           </div>
           <div className="flex items-center">
             <button
-              // onclick={() => handleDecrementQuantity(item.id)}
-              className="font-extrabold text-2xl mx-2 text-red-500 hover:text-red-700"
+              onClick={() =>
+                dispatch(
+                  updateCartItemQuantity({
+                    cartItemId,
+                    updateType: "decrement_quantity",
+                  })
+                )
+              }
+              disabled={quantity < 2}
+              className="font-extrabold text-2xl mx-2 text-red-500 hover:text-red-700 disabled:cursor-not-allowed"
             >
               &#8722;
             </button>
@@ -36,13 +52,21 @@ function CartItemCard({ product, quantity }) {
               {quantity}
             </span>
             <button
-              // onclick={() => handleIncrementQuantity(item.id)}
-              className="font-extrabold text-2xl mx-2 text-green-500 hover:text-green-700"
+              onClick={() =>
+                dispatch(
+                  updateCartItemQuantity({
+                    cartItemId,
+                    updateType: "increment_quantity",
+                  })
+                )
+              }
+              disabled={quantity > 5}
+              className="font-extrabold text-2xl mx-2 text-green-500 hover:text-green-700 disabled:cursor-not-allowed"
             >
               &#43;
             </button>
             <button
-              // onclick={() => handleRemoveItem(item.id)}
+              onClick={() => dispatch(removeItemFromCart({ cartItemId }))}
               className="font-extrabold text-2xl mx-10 text-red-500 hover:text-red-700"
             >
               &#10005;

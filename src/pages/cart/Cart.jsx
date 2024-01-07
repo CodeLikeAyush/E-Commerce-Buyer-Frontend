@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserCart } from "./cartSlice";
+
 import CartItemCard from "../../components/CartItemCard";
+
+// thunk function:
+import { fetchUserCart } from "./cartSlice";
+
+// selector functions:
+import { totalPrice_Cart } from "./cartSlice";
+import { totalDiscount_Cart } from "./cartSlice";
 
 function Cart() {
   const navigate = useNavigate();
@@ -10,9 +17,6 @@ function Cart() {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const [totalCartPrice, setTotalCartPrice] = useState(0);
-  const [totalDiscount, setTotalDiscount] = useState(0);
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const cart = useSelector((state) => state.cart);
@@ -33,18 +37,9 @@ function Cart() {
             }),
           }
         );
-        const cartItems = await response.json();
-        setProducts(cartItems);
+        const cartProducts = await response.json();
+        setProducts(cartProducts);
         setLoading(false);
-
-        // Calculate total price and discount after setting the state
-        const totalPrice = calculateTotalPrice(
-          cart.userCart.cartItems,
-          cartItems
-        );
-        const discount = calculateDiscount(cart.userCart.cartItems, cartItems);
-        setTotalDiscount(discount);
-        setTotalCartPrice(totalPrice);
       } else {
         return;
       }
@@ -59,34 +54,12 @@ function Cart() {
     fetchCartItems();
   }, [isLoggedIn, navigate, dispatch]);
 
-  const calculateTotalPrice = (cartItems, products) => {
-    let totalPrice = 0;
-    for (let i = 0; i < cartItems.length; i++) {
-      for (let j = 0; j < products.length; j++) {
-        if (cartItems[i].product === products[j]._id) {
-          totalPrice += cartItems[i].quantity * products[j].price;
-          break; // Break the inner loop since the product is found
-        }
-      }
-    }
-    return totalPrice;
-  };
-
-  const calculateDiscount = (cartItems, products) => {
-    let totalDiscount = 0;
-    for (let i = 0; i < cartItems.length; i++) {
-      for (let j = 0; j < products.length; j++) {
-        if (cartItems[i].product === products[j]._id) {
-          totalDiscount +=
-            cartItems[i].quantity *
-            (products[j].price * products[j].discountPercent * 0.01);
-          break; // Break the inner loop since the product is found
-        }
-      }
-    }
-    return totalDiscount;
-  };
-
+  const totalCartPrice = useSelector((state) =>
+    totalPrice_Cart(state, products)
+  );
+  const totalDiscount = useSelector((state) =>
+    totalDiscount_Cart(state, products)
+  );
   const findProduct = (productId) => {
     const foundProduct = products.find(
       (product) => product._id.toString() === productId.toString()
@@ -116,6 +89,7 @@ function Cart() {
           {cart.userCart.cartItems.map((item) => (
             <CartItemCard
               key={item._id}
+              cartItemId={item._id}
               product={findProduct(item.product)}
               quantity={item.quantity}
             />

@@ -11,9 +11,10 @@ import { useNavigate } from "react-router-dom";
 
 function ProductCard({ product, onShowProductDetails }) {
   const navigate = useNavigate();
-  const isInCart = useSelector((state) => isAnCartItem(state, product._id));
-
   const dispatch = useDispatch();
+
+  const isInCart = useSelector((state) => isAnCartItem(state, product._id));
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
     <div
@@ -75,6 +76,10 @@ function ProductCard({ product, onShowProductDetails }) {
           className="w-11/12 my-5 font-semibold border-2 rounded-full outline-none bg-yellow-500 text-white px-4 py-2 hover:bg-transparent hover:border-2 hover:border-yellow-500 hover:text-yellow-500 transition duration-300"
           onClick={(e) => {
             e.stopPropagation();
+            if (!isLoggedIn) {
+              navigate("/login");
+              return;
+            }
             navigate("/cart");
           }}
         >
@@ -85,6 +90,10 @@ function ProductCard({ product, onShowProductDetails }) {
           className="w-11/12 my-5 font-semibold border-2 rounded-full outline-none bg-blue-800 text-white px-4 py-2 hover:bg-transparent hover:border-2 hover:border-blue-800 hover:text-blue-800 transition duration-300"
           onClick={(e) => {
             e.stopPropagation();
+            if (!isLoggedIn) {
+              navigate("/login");
+              return;
+            }
             dispatch(addItemToCart({ productId: product._id }));
           }}
         >

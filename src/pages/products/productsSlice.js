@@ -75,9 +75,4 @@ export const isAnCartItem = (state, productId) => {
   });
 };
 
-export const selectPostById = (
-  state,
-  postId // here state is the global state as it being used inside anonymous function of useSelector hook.
-) => state.posts.posts.find((post) => post.id === postId);
-
 export default productsSlice.reducer;
