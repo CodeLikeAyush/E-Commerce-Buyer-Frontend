@@ -37,23 +37,9 @@ function ProductView() {
           navigate(-1);
         }}
         title="Go Back"
-        className="bg-white m-5  text-gray-800  text-9xl py-3 px-4 border-2 rounded-full flex items-center shadow-2xl"
+        className="bg-white m-5  text-gray-800  text-lg font-bold py-3 px-4 border-2 rounded-full flex items-center hover:shadow-lg"
       >
-        <svg
-          className="h-4 w-4 mr-2"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M10 19l-7-7m0 0l7-7m-7 7h18"
-          />
-        </svg>
-        <span className="text-sm font-semibold">Back</span>
+        &#129028; Back
       </button>
       <div className="border-2 mt-5 pb-20 md:pb-0 flex flex-col items-center md:flex-row sm:justify-between shadow-md">
         {/* Product view image-gallary container */}
@@ -145,7 +131,7 @@ function ProductView() {
       </div>
 
       {/* Product Rating/Review Section:::::::::::::::::::::::::::::::::::::::::::::: */}
-      <div className="h-auto md:h-96 py-10  w-full mt-5 shadow-md flex flex-col md:flex-row items-center justify-around">
+      <div className="h-auto md:h-96 py-10  w-full mt-5 shadow-lg border flex flex-col md:flex-row items-center justify-around">
         {/* rating percent pie-chart: */}
         <div className="flex flex-row items-center justify-center p-2">
           <div className="mx-2">
@@ -222,7 +208,7 @@ function ProductView() {
       <div className="my-5 p-5">
         <h1 className="font-bold text-4xl">Ratings & Reviews</h1>
         {/* that single rating: */}
-        <div className="m-5 p-5 shadow-lg">
+        <div className="border m-5 p-5 shadow-lg">
           <div className="m-5 flex flex-row items-center ">
             <span className=" m-2 bg-blue-600 text-white py-2 px-3 font-bold text-3xl rounded-full cursor-pointer">
               M

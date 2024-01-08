@@ -21,7 +21,7 @@ function ProductCard({ product, onShowProductDetails }) {
       onClick={() => {
         onShowProductDetails();
       }}
-      className="w-full md:w-72 h-fit bg-white shadow-2xl rounded-xl overflow-hidden cursor-pointer relative"
+      className="w-full md:w-72 h-fit bg-white border shadow-2xl rounded-xl overflow-hidden cursor-pointer relative"
     >
       {/* Wishlist Button (Top-Right) */}
       <button className="absolute top-2 right-2 text-red-500">

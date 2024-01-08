@@ -16,7 +16,7 @@ function Cart() {
   const dispatch = useDispatch();
 
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingProducts, setLoadingProductsProducts] = useState(true);
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const cart = useSelector((state) => state.cart);
@@ -39,7 +39,7 @@ function Cart() {
         );
         const cartProducts = await response.json();
         setProducts(cartProducts);
-        setLoading(false); // Set loading to false after data is fetched
+        setLoadingProductsProducts(false); // Set loadingProducts to false after data is fetched
       } else {
         return;
       }
@@ -80,7 +80,7 @@ function Cart() {
     );
   } else if (cart.userCart?.totalItemCount === 0) {
     return <div className="text-center">No item in cart</div>;
-  } else if (loading) {
+  } else if (loadingProducts) {
     return <div className="text-center">Loading........</div>;
   } else
     return (
@@ -95,7 +95,7 @@ function Cart() {
             />
           ))}
         </div>
-        <div className="shadow-lg w-full md:w-2/3 h-full p-4">
+        <div className="border shadow-lg w-full md:w-2/3 h-full p-4">
           <h1 className="text-blue-500 font-semibold text-3xl mb-4">
             Price Details
           </h1>
