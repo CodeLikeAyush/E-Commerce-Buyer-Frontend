@@ -6,7 +6,9 @@ import { useSelector } from "react-redux";
 function NavBar() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const user = useSelector((state) => state.auth.user);
-  const cartItemCount = useSelector((state) => isLoggedIn ? state.cart.userCart.totalItemCount : 0);
+  const cartItemCount = useSelector((state) =>
+    isLoggedIn ? state.cart.userCart?.totalItemCount : 0
+  );
 
   const firstName = user ? user.firstName : "";
 
@@ -85,7 +87,7 @@ function NavBar() {
                 className="h-6 m-2 invert"
               />
               Cart
-              {cartItemCount > 0 && (
+              {(isLoggedIn && cartItemCount) > 0 && (
                 // cart-badge:
                 <span className="absolute left-8 top-1 h-5 w-5 text-center text-sm inline-flex items-center justify-center rounded-full bg-red-500 text-white-700 ">
                   {cartItemCount}

@@ -182,22 +182,23 @@ const cartSlice = createSlice({
 });
 
 export const totalPrice_Cart = (state, products) => {
-  console.log(products);
-  const cartItems = state.cart.userCart.cartItems;
+  const cartItems = state.cart.userCart?.cartItems || []; // Used optional chaining to guard against null/undefined
   let totalPrice = 0;
+
   for (let i = 0; i < cartItems.length; i++) {
     for (let j = 0; j < products.length; j++) {
       if (cartItems[i].product === products[j]._id) {
         totalPrice += cartItems[i].quantity * products[j].price;
-        break; // Break the inner loop since the product is found
+        break; // Breaking the inner loop since the product is found
       }
     }
   }
+
   return totalPrice;
 };
 
 export const totalDiscount_Cart = (state, products) => {
-  const cartItems = state.cart.userCart.cartItems;
+  const cartItems = state.cart.userCart?.cartItems || []; // Used optional chaining to guard against null/undefined
 
   let totalDiscount = 0;
   for (let i = 0; i < cartItems.length; i++) {
@@ -206,10 +207,11 @@ export const totalDiscount_Cart = (state, products) => {
         totalDiscount +=
           cartItems[i].quantity *
           (products[j].price * products[j].discountPercent * 0.01);
-        break; // Break the inner loop since the product is found
+        break; // Breaking the inner loop since the product is found
       }
     }
   }
   return totalDiscount;
 };
+
 export default cartSlice.reducer;

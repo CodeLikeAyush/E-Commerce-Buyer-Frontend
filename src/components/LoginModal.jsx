@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 function LoginModalContent() {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   const initialFormData = {
@@ -35,7 +34,7 @@ function LoginModalContent() {
     if (isLoggedIn) {
       navigate(-1);
     }
-  });
+  }, [isLoggedIn,navigate]);
 
   return (
     <div className="h-96 w-80 p-10 bg-white rounded-md shadow-md">

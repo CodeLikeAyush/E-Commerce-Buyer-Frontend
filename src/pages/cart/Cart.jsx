@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import CartItemCard from "../../components/CartItemCard";
 
 // thunk function:
-import { fetchUserCart } from "./cartSlice";
+// import { fetchUserCart } from "./cartSlice";
 
 // selector functions:
 import { totalPrice_Cart } from "./cartSlice";
@@ -21,12 +21,12 @@ function Cart() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const cart = useSelector((state) => state.cart);
 
-  const fetchCartItems = async () => {
+  const fetchCartProducts = useCallback(async () => {
     try {
-      if (isLoggedIn && cart.userCart && cart.userCart.totalItemCount > 0) {
-        const items = cart.userCart.cartItems.map((item) => item.product);
+      if (cart.userCart && cart.userCart.totalItemCount > 0) {
+        const items = cart.userCart?.cartItems.map((item) => item.product);
         const response = await fetch(
-          "http://localhost:3000/api/cart/cart_items",
+          "http://localhost:3000/api/cart/cart_products",
           {
             method: "POST",
             headers: {
@@ -39,7 +39,7 @@ function Cart() {
         );
         const cartProducts = await response.json();
         setProducts(cartProducts);
-        setLoading(false);
+        setLoading(false); // Set loading to false after data is fetched
       } else {
         return;
       }
@@ -47,12 +47,14 @@ function Cart() {
       console.error(error);
       throw error;
     }
-  };
+  }, [cart.userCart]);
 
   useEffect(() => {
-    dispatch(fetchUserCart());
-    fetchCartItems();
-  }, [isLoggedIn, navigate, dispatch]);
+    // dispatch(fetchUserCart());
+    if (isLoggedIn) {
+      fetchCartProducts();
+    }
+  }, [isLoggedIn, fetchCartProducts]);
 
   const totalCartPrice = useSelector((state) =>
     totalPrice_Cart(state, products)
@@ -67,23 +69,21 @@ function Cart() {
     return foundProduct || null;
   };
 
-  let cartContent;
-  if (cart.userCart?.totalItemCount === 0) {
-    cartContent = <div>No item in cart</div>;
-  }
-
-  let content;
   if (!isLoggedIn) {
-    content = (
-      <button
-        onClick={() => navigate("/login")}
-        className="bg-red-600 border-2 px-10 py-4 my-52 text-white font-bold rounded-full hover:bg-transparent hover:border-2 hover:text-red-600 hover:border-red-600 transition duration-300"
+    return (
+      <Link
+        to="/login"
+        className="bg-red-600 border-2 px-10 py-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold rounded-full hover:bg-transparent hover:border-2 hover:text-red-600 hover:border-red-600 transition duration-300"
       >
         Login first
-      </button>
+      </Link>
     );
-  } else if (cart.userCart?.totalItemCount > 0 && !loading) {
-    content = (
+  } else if (cart.userCart?.totalItemCount === 0) {
+    return <div className="text-center">No item in cart</div>;
+  } else if (loading) {
+    return <div className="text-center">Loading........</div>;
+  } else
+    return (
       <div className="flex flex-col-reverse md:flex-row justify-between m-4">
         <div className="p-2 w-full md:w-2/3">
           {cart.userCart.cartItems.map((item) => (
@@ -122,9 +122,7 @@ function Cart() {
           </ul>
 
           <button
-            onClick={() => {
-              navigate("/checkout");
-            }}
+            onClick={() => navigate("/checkout")}
             className="w-full md:w-2/3 font-semibold border-2 border-green-600 hover:border-green-600 bg-green-600 hover:bg-transparent text-white hover:text-green-600 py-2 mt-4 rounded-full transition duration-500"
           >
             Checkout
@@ -132,13 +130,6 @@ function Cart() {
         </div>
       </div>
     );
-  } else if (cart.userCart?.totalItemCount > 0 && loading) {
-    content = <div>Loading........</div>;
-  } else {
-    content = <div>No Item In The Cart</div>;
-  }
-
-  return <>{content}</>;
 }
 
 export default Cart;
