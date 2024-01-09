@@ -66,7 +66,7 @@ function ProductCard({ product, onShowProductDetails }) {
             ({product.discountPercent}% off)
           </span>
           <span className="text-xs px-2 py-1 bg-green-800 text-white rounded-md">
-            {"4.5"} ★
+            {product.averageRating} ★
           </span>
         </div>
       </div>
@@ -84,6 +84,13 @@ function ProductCard({ product, onShowProductDetails }) {
           }}
         >
           Go to Cart
+        </button>
+      ) : product.quantity < 1 ? (
+        <button
+          disabled={true}
+          className="w-11/12 my-5 font-semibold border-2 rounded-full outline-none bg-gray-400 text-white px-4 py-2"
+        >
+          Out of Stock
         </button>
       ) : (
         <button

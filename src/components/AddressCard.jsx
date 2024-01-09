@@ -13,7 +13,7 @@ const AddressCard = ({ address, activeAddressId, handleSelect }) => {
   const isActiveAddress = _id === activeAddressId;
 
   const addressCardStylingClass =
-    "h-32 w-full md:w-3/4  shadow-lg border hover:shadow-2xl p-3 m-4 rounded-md text-left transition-transform transform duration-150 ease-in-out relative";
+    "h-32 w-full  shadow-lg border hover:shadow-2xl p-3 rounded-md text-left transition-transform transform duration-150 ease-in-out relative";
   const selectedAddressCardStylingClass = "bg-blue-500 text-white";
   const radioStylingClass = "w-6 h-6 absolute top-3 right-3 cursor-pointer";
 
@@ -30,11 +30,11 @@ const AddressCard = ({ address, activeAddressId, handleSelect }) => {
         <span className="mx-5">
           {streetAddress}, {city}, {state},
         </span>
-        <span className="font-semibold"> Pincode -</span>
+        <span className="font-semibold">Pincode: </span>
         <span>{pincode}</span>
 
-        <span className="mx-5 block font-bold">
-          <span>Mobile: </span>
+        <span className="mx-5 block">
+          <span className="font-bold">Mobile Number: </span>
           <span> {mobile}</span>
         </span>
       </label>

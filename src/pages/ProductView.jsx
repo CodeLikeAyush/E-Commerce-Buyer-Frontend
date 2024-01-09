@@ -11,6 +11,9 @@ function ProductView() {
     "https://rukminim2.flixcart.com/image/416/416/xif0q/power-bank/x/n/l/power-bank-dx15-20000-mah-dx15-20k-20000-callmate-original-imagqkjnjdngvfpg.jpeg?q=70",
     "https://rukminim2.flixcart.com/image/416/416/xif0q/power-bank/m/p/4/power-bank-dx15-20000-mah-dx15-20k-20000-callmate-original-imagqkjnhtns9sdr.jpeg?q=70",
     "https://rukminim2.flixcart.com/image/416/416/xif0q/power-bank/6/e/l/-original-imagqhq5jmxqekw5.jpeg?q=70",
+    "https://rukminim2.flixcart.com/image/416/416/xif0q/power-bank/6/e/l/-original-imagqhq5jmxqekw5.jpeg?q=70",
+    "https://rukminim2.flixcart.com/image/416/416/xif0q/power-bank/6/e/l/-original-imagqhq5jmxqekw5.jpeg?q=70",
+    "https://rukminim2.flixcart.com/image/416/416/xif0q/power-bank/6/e/l/-original-imagqhq5jmxqekw5.jpeg?q=70",
   ];
 
   const [activeIndex, setActiveIndex] = useState(1);
@@ -45,13 +48,15 @@ function ProductView() {
         {/* Product view image-gallary container */}
         <div className="md:border-r-2 flex flex-col-reverse items-center p-8 sm:flex-col-reverse md:flex-row">
           {/* Small Thumbnail images */}
-          <div className="m-2 overflow-x-scroll overflow-y-auto md:overflow-y-scroll md:overflow-x-auto flex sm:flex-row md:flex-col md:items-center">
+          <div className="m-2 overflow-x-scroll overflow-y-auto md:overflow-y-scroll md:overflow-x-auto flex sm:flex-row md:flex-col md:items-center md:h-96">
             {images.map((image, index) => (
               <img
                 key={index}
                 src={image}
                 alt={`Thumbnail ${index + 1}`}
-                className={`h-20 w-20 border-4 border-solid border-gray-400 p-1 cursor-pointer transition-transform transform hover:border-4 hover:border-blue-600`}
+                className={`h-20 w-20 border-4 border-solid border-gray-400 p-1 cursor-pointer transition-transform transform hover:border-4 ${
+                  index === activeIndex ? "border-green-500" : ""
+                }`}
                 onMouseOver={() => handleMouseHover(index)}
               />
             ))}

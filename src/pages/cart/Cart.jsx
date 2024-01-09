@@ -125,7 +125,7 @@ function Cart() {
             onClick={() => navigate("/checkout")}
             className="w-full md:w-2/3 font-semibold border-2 border-green-600 hover:border-green-600 bg-green-600 hover:bg-transparent text-white hover:text-green-600 py-2 mt-4 rounded-full transition duration-500"
           >
-            Checkout
+            Place Order
           </button>
         </div>
       </div>
