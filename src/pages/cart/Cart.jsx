@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import CartItemCard from "../../components/CartItemCard";
+import Loader from "../../components/LoadingWindow";
 
 // thunk function:
 // import { fetchUserCart } from "./cartSlice";
@@ -79,9 +80,21 @@ function Cart() {
       </Link>
     );
   } else if (cart.userCart?.totalItemCount === 0) {
-    return <div className="text-center">No item in cart</div>;
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+        <div className="text-center mb-8 text-gray-700">
+          You don't have anything in the cart
+        </div>
+        <Link
+          to="/products"
+          className="text-lg font-semibold px-7 py-2 border-2 border-blue-700 rounded-full bg-blue-700 text-white hover:text-blue-700 hover:bg-transparent transition duration-300"
+        >
+          Continue Shopping
+        </Link>
+      </div>
+    );
   } else if (loadingProducts) {
-    return <div className="text-center">Loading........</div>;
+    return <Loader />;
   } else
     return (
       <div className="flex flex-col-reverse md:flex-row justify-between m-4">
@@ -122,7 +135,9 @@ function Cart() {
           </ul>
 
           <button
-            onClick={() => navigate("/checkout")}
+            onClick={() =>
+              navigate("/checkout", { state: { buyingFromCart: true } })
+            }
             className="w-full md:w-2/3 font-semibold border-2 border-green-600 hover:border-green-600 bg-green-600 hover:bg-transparent text-white hover:text-green-600 py-2 mt-4 rounded-full transition duration-500"
           >
             Place Order

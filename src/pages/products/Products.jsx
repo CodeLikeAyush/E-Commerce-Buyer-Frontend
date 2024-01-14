@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import ProductCard from "../../components/ProductCard";
+import Loader from "../../components/LoadingWindow";
 
 import { fetchProducts } from "./productsSlice";
 
@@ -26,9 +27,9 @@ function Products() {
   return (
     <>
       {productAPICallsStatus === "loading" ? (
-        <div>Loading.....</div>
+        <Loader />
       ) : (
-        <div className="flex justify-center flex-wrap space-x-5 space-y-5">
+        <div className="flex justify-center items-center flex-wrap space-x-5 space-y-5">
           {products.map((product) => {
             return (
               <ProductCard
@@ -36,7 +37,7 @@ function Products() {
                 product={product}
                 // isAnCartItem={isAnCartItem(product._id)}
                 onShowProductDetails={() => {
-                  navigate(`/product-view/`);
+                  navigate(`/products/${product._id}`);
                 }}
               />
             );

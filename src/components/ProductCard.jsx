@@ -21,7 +21,7 @@ function ProductCard({ product, onShowProductDetails }) {
       onClick={() => {
         onShowProductDetails();
       }}
-      className="w-full md:w-72 h-fit bg-white border shadow-2xl rounded-xl overflow-hidden cursor-pointer relative"
+      className="flex flex-col items-center w-full md:w-72 h-fit bg-white border shadow-2xl rounded-xl overflow-hidden cursor-pointer relative"
     >
       {/* Wishlist Button (Top-Right) */}
       <button className="absolute top-2 right-2 text-red-500">
@@ -47,7 +47,7 @@ function ProductCard({ product, onShowProductDetails }) {
         alt="Product"
       />
       {/* Product Information :*/}
-      <div className="p-4">
+      <div className="py-4 flex flex-col items-center place-content-around">
         <h2 className="text-xl font-semibold text-gray-800 mb-2">
           {product.title}
         </h2>
@@ -55,14 +55,14 @@ function ProductCard({ product, onShowProductDetails }) {
           {product.description.substring(0, 35)}
         </p>
         {/* price, offer and rating : */}
-        <div className="w-full flex items-center place-content-around">
+        <div className="space-x-4">
           <span className="text-lg font-bold text-gray-800">
             ₹{Math.round(product.price * (1 - product.discountPercent * 0.01))}
           </span>
           <span className="text-sm text-gray-500 font-semibold line-through">
             ₹{product.price}
           </span>
-          <span className="text-sm text-green-500 font-bold  ml-1">
+          <span className="text-sm text-green-500 font-bold">
             ({product.discountPercent}% off)
           </span>
           <span className="text-xs px-2 py-1 bg-green-800 text-white rounded-md">

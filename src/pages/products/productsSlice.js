@@ -9,8 +9,9 @@ const initialState = {
 // data/error produced by this createAsyncThunk function is assigned to the action variable in the extraReducers:
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async () => {
+  async (searchParams) => {
     try {
+      console.log(searchParams);
       const response = await fetch("http://localhost:3000/api/products");
       //   const response = await fetch(
       //     "http://localhost:3000/api/products?price[gte]=100&category=6585e28968372962b16dbc6c&sort=price&fields=title,price,category&page=0&limit=9"

@@ -1,26 +1,37 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import AddressCard from "../../components/AddressCard";
 import Stepper from "../../components/Stepper";
 
 import CheckoutAddress from "../../components/CheckoutAddress";
 import OrderSummary from "../../components/OrderSummary";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addCartItemsToCheckout } from "./checkoutSlice";
 
 function Checkout() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state;
+  console.log(state);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const items = useSelector((state) => state.cart.userCart?.cartItems);
 
   const [currentStep, setCurrentStep] = useState(0);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      // fetUserAddresses();
-      // fetchCheckOutSummary();
-    }
-  }, [isLoggedIn]);
+  useEffect(
+    () => {
+      if (isLoggedIn) {
+        dispatch(addCartItemsToCheckout(items));
+
+        // fetUserAddresses();
+        // fetchCheckOutSummary();
+      }
+    },
+    [isLoggedIn],
+    dispatch
+  );
 
   const steps = [
     { name: "Address" },
@@ -53,8 +64,8 @@ function Checkout() {
           &#129028; Back
         </button>
 
-        <h1 className="font-bold text-4xl text-blue-700">Checkout</h1>
-        <hr className="m-10" />
+        {/* <h1 className="font-bold text-4xl text-blue-700">Checkout</h1> */}
+        {/* <hr className="m-10" /> */}
 
         <Stepper
           steps={steps}

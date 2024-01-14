@@ -1,11 +1,21 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { useLocation } from "react-router-dom";
 
 function OrderSummary() {
+  const location = useLocation();
+  const state = location.state;
+  console.log(state);
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  // const items = cart.userCart?.cartItems.map((item) => item.product);
+
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
   const fetchCheckOutSummary = useCallback(async () => {
     try {
-      // const items = cart.userCart?.cartItems.map((item) => item.product);
       // const
       const response = await fetch(
         "http://localhost:3000/api/order/order_summary",
@@ -26,6 +36,15 @@ function OrderSummary() {
       console.log(error);
     }
   }, [useSelector]);
+  useEffect(
+    () => {
+      if (isLoggedIn) {
+        // fetchCheckOutSummary();
+      }
+    },
+    [isLoggedIn],
+    dispatch
+  );
   return (
     <>
       {/* Price details container */}
