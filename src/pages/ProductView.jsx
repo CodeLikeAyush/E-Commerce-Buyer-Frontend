@@ -2,8 +2,14 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import { useNavigate, useParams } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
+
+import { addItemToCart } from "./cart/cartSlice";
+import { isAnCartItem } from "./products/productsSlice";
+
 function ProductView() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -11,17 +17,20 @@ function ProductView() {
     setActiveIndex(index);
   };
 
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
   // Hardcoded product details
-  const productDetails = {
-    title: "Sample Product",
-    description:
-      "SAMSUNG 24 inch Full HD LED Backlit IPS Panel with 3-Sided Borderless Display, Game & Free Sync Mode, Eye Saver Mode & Flicker Free Monitor (LS24C310EAWXXL)",
-    rating: 4.5,
-    discountPercentage: 20,
-    price: 999,
-  };
+  // const productDetails = {
+  //   title: "Sample Product",
+  //   description:
+  //     "SAMSUNG 24 inch Full HD LED Backlit IPS Panel with 3-Sided Borderless Display, Game & Free Sync Mode, Eye Saver Mode & Flicker Free Monitor (LS24C310EAWXXL)",
+  //   rating: 4.5,
+  //   discountPercentage: 20,
+  //   price: 999,
+  // };
 
   const { productId } = useParams();
+  const isInCart = useSelector((state) => isAnCartItem(state, productId));
   const [productData, setProductData] = useState(null);
   const [loadingProduct, setLoadingProduct] = useState(true);
   const fetchProductDetails = useCallback(async () => {
@@ -136,9 +145,33 @@ function ProductView() {
 
             {/* ADD-TO-CART & BUY-NOW */}
             <div className="flex flex-col lg:flex-row w-full md:w-auto">
-              <button className="bg-green-600 border-2 px-6 py-4 m-2 text-white font-bold rounded-full hover:bg-transparent hover:border-2 hover:text-green-600 hover:border-green-600 transition duration-300 ">
-                Add To Cart
-              </button>
+              {!isInCart ? (
+                <button
+                  className="bg-green-600 border-2 px-6 py-4 m-2 text-white font-bold rounded-full hover:bg-transparent hover:border-2 hover:text-green-600 hover:border-green-600 transition duration-300 "
+                  onClick={(e) => {
+                    if (!isLoggedIn) {
+                      navigate("/login");
+                      return;
+                    }
+                    dispatch(addItemToCart({ productId: productData._id }));
+                  }}
+                >
+                  Add To Cart
+                </button>
+              ) : (
+                <button
+                  className="bg-green-600 border-2 px-6 py-4 m-2 text-white font-bold rounded-full hover:bg-transparent hover:border-2 hover:text-green-600 hover:border-green-600 transition duration-300 "
+                  onClick={(e) => {
+                    if (!isLoggedIn) {
+                      navigate("/login");
+                      return;
+                    }
+                    navigate("/cart");
+                  }}
+                >
+                  Go to Cart
+                </button>
+              )}
               <button
                 onClick={() =>
                   navigate("/checkout", { state: { buyingFromCart: false } })
