@@ -145,6 +145,7 @@ function ProductView() {
 
             {/* ADD-TO-CART & BUY-NOW */}
             <div className="flex flex-col lg:flex-row w-full md:w-auto">
+              {/* ADD-TO-CART: */}
               {!isInCart ? (
                 <button
                   className="bg-green-600 border-2 px-6 py-4 m-2 text-white font-bold rounded-full hover:bg-transparent hover:border-2 hover:text-green-600 hover:border-green-600 transition duration-300 "
@@ -160,7 +161,7 @@ function ProductView() {
                 </button>
               ) : (
                 <button
-                  className="bg-green-600 border-2 px-6 py-4 m-2 text-white font-bold rounded-full hover:bg-transparent hover:border-2 hover:text-green-600 hover:border-green-600 transition duration-300 "
+                  className="bg-yellow-500 border-2 px-6 py-4 m-2 text-white font-bold rounded-full hover:bg-transparent hover:border-2 hover:text-yellow-500 hover:border-yellow-500 transition duration-300 "
                   onClick={(e) => {
                     if (!isLoggedIn) {
                       navigate("/login");
@@ -172,6 +173,7 @@ function ProductView() {
                   Go to Cart
                 </button>
               )}
+              {/* BUY-NOW: */}
               <button
                 onClick={() =>
                   navigate("/checkout", { state: { buyingFromCart: false } })

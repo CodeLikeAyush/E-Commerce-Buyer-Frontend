@@ -54,7 +54,7 @@ function Checkout() {
     return (
       <>
         {/* back button: */}
-        <button
+        {/* <button
           onClick={() => {
             navigate(-1);
           }}
@@ -62,7 +62,7 @@ function Checkout() {
           className="bg-white m-5  text-gray-800  text-lg font-bold py-3 px-4 border-2 rounded-full flex items-center hover:shadow-lg"
         >
           &#129028; Back
-        </button>
+        </button> */}
 
         {/* <h1 className="font-bold text-4xl text-blue-700">Checkout</h1> */}
         {/* <hr className="m-10" /> */}

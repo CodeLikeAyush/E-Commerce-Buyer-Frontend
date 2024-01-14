@@ -95,7 +95,8 @@ function Cart() {
     );
   } else if (loadingProducts) {
     return <Loader />;
-  } else
+  } else {
+    console.log(products);
     return (
       <div className="flex flex-col-reverse md:flex-row justify-between m-4">
         <div className="p-2 w-full md:w-2/3">
@@ -145,6 +146,7 @@ function Cart() {
         </div>
       </div>
     );
+  }
 }
 
 export default Cart;
