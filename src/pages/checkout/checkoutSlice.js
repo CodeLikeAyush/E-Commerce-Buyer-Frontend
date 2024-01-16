@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   // status: "idle",
   // error: null,
-  checkout_type: null, // cart or product
+  checkout_type: null, // = cart or product
   checkout_items: [],
   checkout_address: [],
 };

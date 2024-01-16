@@ -5,9 +5,9 @@ import Stepper from "../components/Stepper";
 function Home() {
   return (
     <>
-      {/* <Carousel /> */}
+      <Carousel />
       {/* <Stepper /> */}
-      <div>Home Page</div>
+      {/* <div>Home Page</div> */}
     </>
   );
 }

@@ -34,7 +34,7 @@ const Stepper = ({ children, steps, currentStep, onStepChange }) => {
               ></div>
             )}
             {/* Display step circle with name */}
-            <div className="flex flex-col items-center -mx-9">
+            <div className="flex flex-col items-center">
               <span
                 className={`bg-blue-600 text-white py-2 px-4 font-bold text-xl rounded-full cursor-pointer ${
                   currentStep === index

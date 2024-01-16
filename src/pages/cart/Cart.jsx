@@ -11,6 +11,7 @@ import Loader from "../../components/LoadingWindow";
 // selector functions:
 import { totalPrice_Cart } from "./cartSlice";
 import { totalDiscount_Cart } from "./cartSlice";
+import UnavailableProductModal from "../../components/UnavailableProductModal";
 
 function Cart() {
   const navigate = useNavigate();
@@ -98,53 +99,56 @@ function Cart() {
   } else {
     console.log(products);
     return (
-      <div className="flex flex-col-reverse md:flex-row justify-between m-4">
-        <div className="p-2 w-full md:w-2/3">
-          {cart.userCart.cartItems.map((item) => (
-            <CartItemCard
-              key={item._id}
-              cartItemId={item._id}
-              product={findProduct(item.product)}
-              quantity={item.quantity}
-            />
-          ))}
-        </div>
-        <div className="border shadow-lg w-full md:w-2/3 h-full p-4">
-          <h1 className="text-blue-500 font-semibold text-3xl mb-4">
-            Price Details
-          </h1>
-          <hr className="mb-4" />
+      <>
+        <UnavailableProductModal />
+        <div className="flex flex-col-reverse md:flex-row justify-between m-4">
+          <div className="p-2 w-full md:w-2/3">
+            {cart.userCart.cartItems.map((item) => (
+              <CartItemCard
+                key={item._id}
+                cartItemId={item._id}
+                product={findProduct(item.product)}
+                quantity={item.quantity}
+              />
+            ))}
+          </div>
+          <div className="border shadow-lg w-full md:w-2/3 h-full p-4">
+            <h1 className="text-blue-500 font-semibold text-3xl mb-4">
+              Price Details
+            </h1>
+            <hr className="mb-4" />
 
-          <ul className="list-none">
-            <li className="flex justify-between">
-              <span>Price ({cart.userCart.cartItems.length} items)</span>
-              <span>₹{totalCartPrice}</span>
-            </li>
-            <li className="flex justify-between">
-              <span>Discount</span>
-              <span className="text-green-500 font-semibold">
-                - ₹ {totalDiscount}
-              </span>
-            </li>
-            <hr className="my-4" />
-            <li className="flex justify-between">
-              <span className="font-bold">Total Price</span>
-              <span className="font-bold">
-                ₹ {totalCartPrice - totalDiscount}
-              </span>
-            </li>
-          </ul>
+            <ul className="list-none">
+              <li className="flex justify-between">
+                <span>Price ({cart.userCart.cartItems.length} items)</span>
+                <span>₹{totalCartPrice}</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Discount</span>
+                <span className="text-green-500 font-semibold">
+                  - ₹ {totalDiscount}
+                </span>
+              </li>
+              <hr className="my-4" />
+              <li className="flex justify-between">
+                <span className="font-bold">Total Price</span>
+                <span className="font-bold">
+                  ₹ {totalCartPrice - totalDiscount}
+                </span>
+              </li>
+            </ul>
 
-          <button
-            onClick={() =>
-              navigate("/checkout", { state: { buyingFromCart: true } })
-            }
-            className="w-full md:w-2/3 font-semibold border-2 border-green-600 hover:border-green-600 bg-green-600 hover:bg-transparent text-white hover:text-green-600 py-2 mt-4 rounded-full transition duration-500"
-          >
-            Place Order
-          </button>
+            <button
+              onClick={() =>
+                navigate("/checkout", { state: { buyingFromCart: true } })
+              }
+              className="w-2/3 block m-auto font-semibold border-2 border-green-600 hover:border-green-600 bg-green-600 hover:bg-transparent text-white hover:text-green-600 py-2 mt-4 rounded-full transition duration-500"
+            >
+              Place Order
+            </button>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }

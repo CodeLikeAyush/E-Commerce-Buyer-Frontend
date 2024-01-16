@@ -14,7 +14,7 @@ function CartItemCard({ product, cartItemId, quantity }) {
         <div className="mr-4 shadow-lg">
           <img
             src={product.thumbnail}
-            alt={product.name}
+            alt={`${product.title}-image`}
             className="h-24 w-24 object-fill rounded-md"
           />
         </div>
@@ -22,7 +22,7 @@ function CartItemCard({ product, cartItemId, quantity }) {
           <div className="text-lg font-semibold text-gray-800 mb-2">
             {product.title}
           </div>
-          <div className="w-full flex flex-col md:flex-row justify-center  items-center space-y-4 md:space-y-0">
+          <div className="w-full flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0">
             <span className="text-lg font-bold text-gray-800">
               ₹
               {Math.round(product.price * (1 - product.discountPercent * 0.01))}
