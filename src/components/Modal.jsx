@@ -6,7 +6,7 @@ function Modal({ children }) {
 
   return (
     <div
-      className="fixed inset-0 z-10  bg-gray-700 bg-opacity-80 flex items-center justify-center overflow-y-scroll"
+      className="fixed inset-0 z-10  bg-black bg-opacity-80 flex items-center justify-center overflow-y-scroll"
       onClick={() => navigate(-1)}
     >
       <div className="absolute" onClick={(e) => e.stopPropagation()}>

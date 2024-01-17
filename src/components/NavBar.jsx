@@ -95,9 +95,24 @@ function NavBar() {
               )}
             </Link>
             {isLoggedIn ? (
-              <span className="border-2 cursor-pointer h-12 w-12 text-center text-2xl inline-flex items-center justify-center  border-white rounded-full bg-white text-blue-700 hover:text-white hover:bg-blue-700 transition duration-300">
-                {firstName.substring(0, 1)}
-              </span>
+              <div className="group">
+                <span className="border-2 cursor-pointer h-12 w-12 text-center text-2xl inline-flex items-center justify-center  border-white rounded-full bg-white text-blue-700 group-hover:text-white group-hover:bg-blue-700 transition duration-300">
+                  {firstName.substring(0, 1)}
+                </span>
+                <div className="absolute right-3 hidden group-hover:block rounded overflow-hidden">
+                  <div className="bg-white text-black cursor-pointer rounded">
+                    <Link to="/profile" className="block p-2 hover:bg-gray-300">
+                      Profile
+                    </Link>
+                    <Link
+                      to="#"
+                      className="block p-2 bg-red-700 hover:bg-red-500 text-white"
+                    >
+                      Logout
+                    </Link>
+                  </div>
+                </div>
+              </div>
             ) : (
               <Link
                 to="/login"
