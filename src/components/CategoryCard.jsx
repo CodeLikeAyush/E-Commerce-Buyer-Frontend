@@ -20,7 +20,7 @@ function CategoryCard({ category }) {
 
         {/* Overlay with Category Name */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-white flex items-center justify-center font-bold text-2xl uppercase bg-black h-full w-full bg-opacity-50 px-4 py-2 rounded-xl">
+          <span className="text-white text-center flex items-center justify-center font-bold text-2xl uppercase bg-black h-full w-full bg-opacity-40 px-4 py-2 rounded-xl">
             {category.name}
           </span>
         </div>

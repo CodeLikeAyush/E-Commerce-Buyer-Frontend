@@ -18,7 +18,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserCart } from "./pages/cart/cartSlice";
-import Profile from "./pages/profile/Profile";
+import Account from "./pages/account/Account";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ function App() {
         <Route path="/register" element={<RegisterModal />} />
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/checkout" element={<Checkout />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/account" element={<Account />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

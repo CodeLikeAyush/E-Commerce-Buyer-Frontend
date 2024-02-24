@@ -101,8 +101,8 @@ function NavBar() {
                 </span>
                 <div className="absolute right-3 hidden group-hover:block rounded overflow-hidden">
                   <div className="bg-white text-black cursor-pointer rounded">
-                    <Link to="/profile" className="block p-2 hover:bg-gray-300">
-                      Profile
+                    <Link to="/account" className="block p-2 hover:bg-gray-300">
+                      Account
                     </Link>
                     <Link
                       to="#"

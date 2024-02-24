@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-function Profile() {
+function Account() {
   return (
     <>
       <div className="m-5 grid md:grid-cols-4 gap-3">
@@ -54,4 +54,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default Account;

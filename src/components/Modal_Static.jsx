@@ -13,9 +13,9 @@ function Modal_Static({ children }) {
       <div className="absolute" onClick={(e) => e.stopPropagation()}>
         <button
           onClick={() => setShowModal(!showModal)}
-          className="absolute -top-2 -right-10 text-4xl text-white"
+          className="absolute -top-6 -right-12 text-6xl text-white"
         >
-          X
+          &times;
         </button>
         {children}
       </div>
