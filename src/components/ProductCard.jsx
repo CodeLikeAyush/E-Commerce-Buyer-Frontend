@@ -47,9 +47,9 @@ function ProductCard({ product, onShowProductDetails }) {
         alt="Product"
       />
       {/* Product Information :*/}
-      <div className="py-4 flex flex-col items-center place-content-around">
+      <div className="py-4 px-2 flex flex-col items-center place-content-around">
         <h2 className="text-xl font-semibold text-gray-800 mb-2">
-          {product.title}
+          {product.productName}
         </h2>
         <p className="text-gray-600 mb-4">
           {product.description.substring(0, 35)}
@@ -57,21 +57,31 @@ function ProductCard({ product, onShowProductDetails }) {
         {/* price, offer and rating : */}
         <div className="space-x-4">
           <span className="text-lg font-bold text-gray-800">
-            ₹{Math.round(product.price * (1 - product.discountPercent * 0.01))}
+            ₹
+            {Math.round(
+              product.varieties[0].price *
+                (1 - product.varieties[0].discountPercent * 0.01)
+            )}
           </span>
           <span className="text-sm text-gray-500 font-semibold line-through">
-            ₹{product.price}
+            ₹{product.varieties[0].price}
           </span>
           <span className="text-sm text-green-500 font-bold">
-            ({product.discountPercent}% off)
+            ({product.varieties[0].discountPercent}% off)
           </span>
-          <span className="text-xs px-2 py-1 bg-green-800 text-white rounded-md">
-            {product.averageRating} ★
+          <span
+            className={`text-xs px-2 py-1  rounded-md ${
+              product.averageRating
+                ? ` bg-green-800 text-white`
+                : "text-gray-400"
+            }`}
+          >
+            {product.averageRating ? `${product.averageRating}★` : "No Rating"}
           </span>
         </div>
       </div>
       {/* Add to Cart Button: */}
-      {isInCart ? (
+      {/* {isInCart ? (
         <button
           className="w-11/12 my-5 font-semibold border-2 rounded-full outline-none bg-yellow-500 text-white px-4 py-2 hover:bg-transparent hover:border-2 hover:border-yellow-500 hover:text-yellow-500 transition duration-300"
           onClick={(e) => {
@@ -106,7 +116,7 @@ function ProductCard({ product, onShowProductDetails }) {
         >
           Add to Cart
         </button>
-      )}
+      )} */}
     </div>
   );
 }

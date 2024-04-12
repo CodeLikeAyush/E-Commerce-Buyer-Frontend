@@ -11,10 +11,11 @@ function ProductView() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeThumbnailIndex, setActiveThumbnailIndex] = useState(0);
+  const [activeVariety, setActiveVariety] = useState(null);
 
   const handleMouseHover = (index) => {
-    setActiveIndex(index);
+    setActiveThumbnailIndex(index);
   };
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -40,7 +41,9 @@ function ProductView() {
       );
       const data = await response.json();
       setProductData(data);
-      console.log(productData);
+      setActiveVariety(data.varieties[0]._id);
+      console.log(data);
+
       setLoadingProduct(false);
     } catch (error) {
       console.error(error);
@@ -51,6 +54,12 @@ function ProductView() {
   useEffect(() => {
     fetchProductDetails();
   }, [fetchProductDetails]);
+
+  useEffect(() => {
+    console.log(activeVariety);
+  }, [activeVariety]);
+
+  let sizes = ["S", "M", "L", "XL", "2XL", "3XL"];
   return (
     <>
       {/* back button: */}
@@ -70,23 +79,32 @@ function ProductView() {
           <div className="md:border-r-2 flex flex-col-reverse items-center p-8 sm:flex-col-reverse md:flex-row">
             {/* Small Thumbnail images */}
             <div className="m-2 overflow-x-scroll overflow-y-auto md:overflow-y-scroll md:overflow-x-auto flex sm:flex-row md:flex-col md:items-center md:h-96">
-              {productData.images.map((image, index) => (
-                <img
-                  key={`prod_img-${index}`}
-                  src={image}
-                  alt={`Thumbnail ${index + 1}`}
-                  className={`h-20 w-20 border-4 border-solid border-gray-400 p-1 cursor-pointer transition-transform transform hover:border-4 ${
-                    index === activeIndex ? "border-green-500" : ""
-                  }`}
-                  onMouseOver={() => handleMouseHover(index)}
-                />
-              ))}
+              {productData.varieties
+                .filter(
+                  (variety) =>
+                    variety._id.toString() === activeVariety.toString()
+                )[0]
+                .images.map((image, index) => (
+                  <img
+                    key={`prod_img-${index}`}
+                    src={image}
+                    alt={`Thumbnail ${index + 1}`}
+                    className={`h-20 w-20 border-4 border-solid border-gray-400 p-1 cursor-pointer transition-transform transform hover:border-4 ${
+                      index === activeThumbnailIndex ? "border-green-500" : ""
+                    }`}
+                    onMouseOver={() => handleMouseHover(index)}
+                  />
+                ))}
             </div>
 
             {/* Large image view */}
             <div className="relative border border-gray-400 p-2 w-96 h-96">
               <img
-                src={productData.images[activeIndex]}
+                src={
+                  productData.varieties.filter(
+                    (variety) => variety._id === activeVariety
+                  )[0].images[activeThumbnailIndex]
+                }
                 alt="Product"
                 className="object-contain shadow-md w-full h-full"
               />
@@ -130,19 +148,70 @@ function ProductView() {
             {/* PRICE-DISCOUNTED_PRICE-OFF */}
             <div className="mb-4 flex items-center">
               <span className="text-xl font-bold text-green-600 mr-4">
-                {productData.discountPercent}% off
+                {productData.varieties[0].discountPercent}% off
               </span>
               <span className="text-2xl line-through text-gray-500 mr-4">
-                ₹{productData.price}
+                ₹{productData.varieties[0].price}
               </span>
               <span className="text-4xl font-bold">
                 ₹
                 {Math.floor(
-                  productData.price * (1 - productData.discountPercent * 0.01)
+                  productData.varieties[0].price *
+                    (1 - productData.varieties[0].discountPercent * 0.01)
                 )}
               </span>
             </div>
 
+            {/* Colors: */}
+            <div className="flex items-center space-x-2">
+              <span className="font-semibold">Color:</span>
+
+              {Array.from(
+                new Set( // create set(unique) of all the colors from sku of from varieties array
+                  productData.varieties.map(
+                    (variety) => variety.sku.split("-")[0]
+                  )
+                )
+              ).map((color, index) => {
+                return (
+                  <span
+                    onClick={() => {
+                      setActiveVariety(
+                        productData.varieties.filter(
+                          (varty) =>
+                            varty.sku.split("-")[0].toString() === color
+                        )[0]._id
+                      );
+                    }}
+                    key={index}
+                    style={{
+                      backgroundColor: "#" + color.toString(),
+                      height: "30px",
+                      width: "30px",
+                      borderRadius: "50%",
+                      border: "1px solid gray",
+                      cursor: "pointer",
+                      display: "inline-block",
+                    }}
+                  ></span>
+                );
+              })}
+            </div>
+            <br />
+
+            {/* Sizes */}
+            <div className="flex items-center space-x-2">
+              <span className="font-semibold">Size:</span>
+              {sizes.map((size, index) => (
+                <span
+                  key={index}
+                  className="text-center border border-gray-300 bg-gray-200 px-4 py-2 rounded cursor-pointer"
+                >
+                  {size}
+                </span>
+              ))}
+            </div>
+            <br />
             {/* ADD-TO-CART & BUY-NOW */}
             <div className="flex flex-col lg:flex-row w-full md:w-auto">
               {/* ADD-TO-CART: */}

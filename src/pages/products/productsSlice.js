@@ -17,6 +17,7 @@ export const fetchProducts = createAsyncThunk(
       //     "http://localhost:3000/api/products?price[gte]=100&category=6585e28968372962b16dbc6c&sort=price&fields=title,price,category&page=0&limit=9"
       //   );
       const data = await response.json();
+      console.log(data)
       return data;
     } catch (error) {
       throw error; // Throwing the error here so that it gets captured by the rejected action
